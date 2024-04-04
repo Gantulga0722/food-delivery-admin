@@ -38,7 +38,7 @@ const BagItemContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [bagItem, setBagItem] = useState<BagItemType[]>([]);
-  console.log("in contextL")
+  
 
   return (
     <BagItemContext.Provider value={{ bagItem, setBagItem }}>

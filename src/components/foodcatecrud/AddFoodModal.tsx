@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { ButtonBase, Stack } from "@mui/material";
 import { CloseIconModal } from "../icons";
-import { AddFoodInfo } from "../inputs";
+import { AddFoodInfo, FoodInfoCateSelect } from "../inputs";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,10 +22,6 @@ const data = [
   {
     text: "Хоолны нэр",
     placehold: "Хоолны нэр оруулна уу",
-  },
-  {
-    text: "Хоолны ангилал",
-    placehold: "Хоолны ангилал оруулна уу",
   },
   {
     text: "Хоолны орц",
@@ -48,6 +44,25 @@ export const AddFoodModal = ({
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
+  const BE_URL = "http://localhost:4000/api/category";
+  const [categoryName, setCategoryName] = React.useState("");
+
+  const handleAddCategory = async () => {
+    const data = {
+      name: categoryName,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    const FETCHED_DATA = await fetch(BE_URL, options);
+    const FETCHED_JSON = await FETCHED_DATA.json();
+    console.log("fethc", FETCHED_JSON);
+  };
+
   return (
     <Stack>
       <Modal
@@ -74,9 +89,20 @@ export const AddFoodModal = ({
             <Stack width={"24px"} height={"24px"}></Stack>
           </Stack>
           <Stack gap={"16px"} paddingY={"24px"}>
+            <FoodInfoCateSelect
+              text={"Хоолны ангилал"}
+              placehold={"Select Category"}
+              setFunction={() => {}}
+            />
             {data.map((e, index) => (
-              <AddFoodInfo key={index} text={e.text} placehold={e.placehold} />
+              <AddFoodInfo
+                key={index}
+                text={e.text}
+                placehold={e.placehold}
+                setFunction={() => {}}
+              />
             ))}
+
             <Stack gap={"8px"}>
               <Typography fontSize={"14px"} fontWeight={500} color={"#121316"}>
                 Хоолны зураг

@@ -1,22 +1,46 @@
 import { ButtonBase, Stack, Typography } from "@mui/material";
 import { CategoryData } from "@/utils/dummy-data-cards";
 import { CreateCateIcon, DashboardCateIcon } from "@/components/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFood } from "../context/Context";
 import { FoodCard } from "../cards";
 import { AddFoodModal } from "./AddFoodModal";
 import { AddCategoryModal } from "./AddCategoryModal";
 
 export const FoodCateCrud = () => {
+  interface DataType {
+    id: string;
+    name: string;
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenCate, setIsModalOpenCate] = useState(false);
   const [foodCate, setFoodCate] = useState("Main Dish");
   const { allFood } = useFood();
+  const [data, setData] = useState<DataType[] | null>(null);
 
   const menuFilteredFood = allFood.filter((food) => food.category == foodCate);
   const menuSortedFood = menuFilteredFood.sort(
     (aFood, bFood) => bFood.sale - aFood.sale
   );
+
+  const BE_URL = "http://localhost:4000/api/category";
+
+  useEffect(() => {
+    const handleGetCategory = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const fetched_data = await fetch(BE_URL, options);
+      const fetched_json = await fetched_data.json();
+      console.log("cate fetch", fetched_json);
+      setData(fetched_json.categories);
+    };
+    handleGetCategory();
+  }, []);
 
   const onCloseModalCate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -55,7 +79,7 @@ export const FoodCateCrud = () => {
           </Typography>
         </Stack>
         <Stack gap={"26px"}>
-          {CategoryData.map((cate, index) => (
+          {data?.map((cate, index) => (
             <ButtonBase key={index} onClick={() => setFoodCate(cate.name)}>
               <Stack
                 height={"40px"}
