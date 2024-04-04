@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import { ButtonBase, Stack } from "@mui/material";
 import { CloseIconModal } from "../icons";
 import { AddFoodInfo, FoodInfoCateSelect } from "../inputs";
+import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -18,25 +19,6 @@ const style = {
   p: 3,
 };
 
-const data = [
-  {
-    text: "Хоолны нэр",
-    placehold: "Хоолны нэр оруулна уу",
-  },
-  {
-    text: "Хоолны орц",
-    placehold: "Хоолны орц оруулна уу",
-  },
-  {
-    text: "Хоолны үнэ",
-    placehold: "Хоолны үнэ оруулна уу",
-  },
-  {
-    text: "Хямдралтай эсэх",
-    placehold: "Хямдрал оруулна уу",
-  },
-];
-
 export const AddFoodModal = ({
   isOpen,
   onClose,
@@ -45,11 +27,21 @@ export const AddFoodModal = ({
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
   const BE_URL = "http://localhost:4000/api/category";
-  const [categoryName, setCategoryName] = React.useState("");
+  const [category, setCategory] = useState("");
+  const [foodName, setFoodName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [imagePath, setImagePath] = useState("");
+  const [ingredients, setIngedients] = useState<string[]>([]);
+  const [sale, setSale] = useState(0);
 
   const handleAddCategory = async () => {
     const data = {
-      name: categoryName,
+      category: category,
+      name: foodName,
+      price: price,
+      imagePath: imagePath,
+      ingredients: ingredients,
+      sale: sale,
     };
     const options = {
       method: "POST",
@@ -89,19 +81,36 @@ export const AddFoodModal = ({
             <Stack width={"24px"} height={"24px"}></Stack>
           </Stack>
           <Stack gap={"16px"} paddingY={"24px"}>
+            <AddFoodInfo
+              text={"Хоолны нэр"}
+              value={foodName}
+              placehold={"Хоолны нэр оруулна уу"}
+              setFunction={setFoodName}
+            />
             <FoodInfoCateSelect
               text={"Хоолны ангилал"}
+              value={category}
               placehold={"Select Category"}
-              setFunction={() => {}}
+              setFunction={setCategory}
             />
-            {data.map((e, index) => (
-              <AddFoodInfo
-                key={index}
-                text={e.text}
-                placehold={e.placehold}
-                setFunction={() => {}}
-              />
-            ))}
+            <AddFoodInfo
+              text={"Хоолны орц"}
+              value={ingredients}
+              placehold={"Хоолны орц оруулна уу"}
+              setFunction={setIngedients}
+            />
+            <AddFoodInfo
+              text={"Хоолны үнэ"}
+              value={price}
+              placehold={"Хоолны үнэ оруулна уу"}
+              setFunction={setPrice}
+            />
+            <AddFoodInfo
+              text={"Хямдралтай"}
+              value={sale}
+              placehold={"Хямдралын хувь оруулна уу"}
+              setFunction={setSale}
+            />
 
             <Stack gap={"8px"}>
               <Typography fontSize={"14px"} fontWeight={500} color={"#121316"}>

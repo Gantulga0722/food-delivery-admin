@@ -14,10 +14,12 @@ export const AddFoodInfo = ({
   text,
   placehold,
   setFunction,
+  value,
 }: {
   text: string;
   placehold: string;
   setFunction: Dispatch<SetStateAction<string>>;
+  value: string;
 }) => {
   return (
     <Stack gap={"8px"}>
@@ -66,10 +68,12 @@ export const FoodInfoCateSelect = ({
   text,
   placehold,
   setFunction,
+  value,
 }: {
   text: string;
   placehold: string;
   setFunction: Dispatch<SetStateAction<string>>;
+  value: string;
 }) => {
   interface DataType {
     id: string;
