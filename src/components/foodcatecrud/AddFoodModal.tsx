@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { ButtonBase, Stack } from "@mui/material";
+import { ButtonBase, CircularProgress, Stack } from "@mui/material";
 import { CloseIconModal } from "../icons";
 import { AddFoodInfo, FoodInfoCateSelect } from "../inputs";
 import { useState } from "react";
@@ -19,6 +19,9 @@ const style = {
   p: 3,
 };
 
+const CLOUD_NAME = "dzgomjjhe";
+const UPLOAD_PRESET = "w0rub0ag";
+
 export const AddFoodModal = ({
   isOpen,
   onClose,
@@ -26,18 +29,18 @@ export const AddFoodModal = ({
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
-  const BE_URL = "http://localhost:4000/api/category";
+  const BE_URL = "http://localhost:4000/api/food";
   const [category, setCategory] = useState("");
   const [foodName, setFoodName] = useState("");
   const [price, setPrice] = useState(0);
-  const [imagePath, setImagePath] = useState("");
+  const [imagePath, setImagePath] = useState<string | null>(null);
   const [ingredients, setIngedients] = useState<string[]>([]);
   const [sale, setSale] = useState(0);
 
-  const handleAddCategory = async () => {
+  const handleAddFood = async () => {
     const data = {
       category: category,
-      name: foodName,
+      foodName: foodName,
       price: price,
       imagePath: imagePath,
       ingredients: ingredients,
@@ -53,6 +56,37 @@ export const AddFoodModal = ({
     const FETCHED_DATA = await fetch(BE_URL, options);
     const FETCHED_JSON = await FETCHED_DATA.json();
     console.log("fethc", FETCHED_JSON);
+  };
+
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const fileChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event?.target?.files) {
+      setFile(event.target.files[0]);
+    }
+  };
+  const uploadHandler = async () => {
+    if (file) {
+      setLoading(true);
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", UPLOAD_PRESET);
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      console.log(res);
+      const resJson = await res.json();
+      console.log(resJson);
+      if (resJson.url) {
+        setImagePath(resJson.url);
+      }
+      setLoading(false);
+    }
   };
 
   return (
@@ -106,7 +140,7 @@ export const AddFoodModal = ({
               setFunction={setPrice}
             />
             <AddFoodInfo
-              text={"Хямдралтай"}
+              text={"Хямдралтай эсэх"}
               value={sale}
               placehold={"Хямдралын хувь оруулна уу"}
               setFunction={setSale}
@@ -116,38 +150,64 @@ export const AddFoodModal = ({
               <Typography fontSize={"14px"} fontWeight={500} color={"#121316"}>
                 Хоолны зураг
               </Typography>
-              <Stack
-                width={"284px"}
-                height={"122px"}
-                padding={"8px"}
-                gap={"8px"}
-                justifyContent={"center"}
-                borderRadius={"8px"}
-                border={"1px dashed #D6D7DC"}
-                bgcolor={"rgba(186, 188, 196, 0.12)"}
-              >
-                <Typography
-                  fontSize={"16px"}
-                  fontWeight={700}
-                  color={"#525252"}
+              <Stack direction={"row"} gap={"60px"}>
+                <Stack
+                  width={"284px"}
+                  height={"122px"}
+                  padding={"8px"}
+                  gap={"8px"}
+                  justifyContent={"center"}
+                  borderRadius={"8px"}
+                  border={"1px dashed #D6D7DC"}
+                  bgcolor={"rgba(186, 188, 196, 0.12)"}
                 >
-                  Add image for the food
-                </Typography>
-                <ButtonBase>
+                  <Typography
+                    fontSize={"16px"}
+                    fontWeight={700}
+                    color={"#525252"}
+                  >
+                    Add image for the food
+                  </Typography>
+                  {loading && (
+                    <Stack
+                      sx={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 1000,
+                      }}
+                    >
+                      <Typography>Loading..</Typography>
+                      <CircularProgress />
+                    </Stack>
+                  )}
+
                   <Stack
                     padding={"8px 12px"}
                     borderRadius={"8px"}
                     bgcolor={"#393939"}
+                    height={"60px"}
                   >
-                    <Typography
-                      fontSize={"16px"}
-                      fontWeight={700}
-                      color={"#FFF"}
-                    >
-                      Add image
-                    </Typography>
+                    <input type="file" onChange={fileChangeHandler} />
+                    <button onClick={uploadHandler}>Add image</button>
                   </Stack>
-                </ButtonBase>
+                </Stack>
+                <Stack>
+                  {imagePath && (
+                    <img
+                      src={imagePath}
+                      alt="uploaded"
+                      width={120}
+                      height={120}
+                    />
+                  )}
+                </Stack>
               </Stack>
             </Stack>
           </Stack>
@@ -174,7 +234,7 @@ export const AddFoodModal = ({
                 </Typography>
               </Stack>
             </ButtonBase>
-            <ButtonBase>
+            <ButtonBase onClick={handleAddFood}>
               <Stack
                 padding={"10px 16px"}
                 justifyContent={"center"}

@@ -34,6 +34,7 @@ const useFood = () => {
 
 const FoodContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [allFood, setAllFood] = useState<FoodType[]>([]);
+  const [categories, setCategories] = useState<FoodType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

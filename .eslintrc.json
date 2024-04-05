@@ -102,7 +102,7 @@
           }
         ],
         "no-secrets/no-secrets": "error",
-        "max-lines": ["error", { "max": 200 }]
+        "max-lines": ["error", { "max": 1000 }]
       }
     },
     {

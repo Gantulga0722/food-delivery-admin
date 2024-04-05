@@ -73,6 +73,7 @@ export const AddCategoryModal = ({
             <AddFoodInfo
               text={"Category name"}
               placehold={"Write Category name"}
+              value={categoryName}
               setFunction={setCategoryName}
             />
           </Stack>

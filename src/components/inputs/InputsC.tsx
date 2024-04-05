@@ -18,8 +18,8 @@ export const AddFoodInfo = ({
 }: {
   text: string;
   placehold: string;
-  setFunction: Dispatch<SetStateAction<string>>;
-  value: string;
+  setFunction: Dispatch<SetStateAction<any>>;
+  value: any;
 }) => {
   return (
     <Stack gap={"8px"}>
@@ -72,18 +72,22 @@ export const FoodInfoCateSelect = ({
 }: {
   text: string;
   placehold: string;
-  setFunction: Dispatch<SetStateAction<string>>;
+  setFunction: Dispatch<SetStateAction<any>>;
   value: string;
 }) => {
   interface DataType {
-    id: string;
+    _id: string;
     name: string;
   }
-  const [category, setCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<
+    DataType | undefined
+  >();
   const [data, setData] = useState<DataType[] | null>(null);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
+    const selected = data?.find((cat) => cat._id == event.target.value);
+    setSelectedCategory(selected);
+    setFunction(selected?._id);
   };
 
   const BE_URL = "http://localhost:4000/api/category";
@@ -103,7 +107,7 @@ export const FoodInfoCateSelect = ({
     };
     handleGetCategory();
   }, []);
-
+  console.log({ data });
   return (
     <Stack gap={"8px"}>
       <Stack direction={"row"} alignItems={"center"} gap={"8px"}>
@@ -122,14 +126,14 @@ export const FoodInfoCateSelect = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={category}
+            // value={selectedCategory?.id}
             label="Select category"
             onChange={handleChange}
             sx={{ ".MuiOutlinedInput-notchedOutline": { border: "none" } }}
             placeholder="Select category"
           >
             {data?.map((cate, index) => (
-              <MenuItem key={index} value={cate.name}>
+              <MenuItem key={index} value={cate._id}>
                 {cate.name}
               </MenuItem>
             ))}
