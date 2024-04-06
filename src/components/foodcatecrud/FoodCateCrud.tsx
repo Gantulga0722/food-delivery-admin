@@ -46,7 +46,6 @@ export const FoodCateCrud = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    console.log();
     setIsModalOpenCate(false);
   };
   const onOpenModalCate = (e: any) => {
@@ -56,7 +55,6 @@ export const FoodCateCrud = () => {
 
   const onCloseModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log();
     setIsModalOpen(false);
   };
   const onOpenModal = (e: any) => {
