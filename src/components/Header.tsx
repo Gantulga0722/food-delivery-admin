@@ -2,9 +2,7 @@ import * as React from "react";
 import { PineConeIcon, LoginIcon } from "./icons/Icons";
 import {
   Box,
-  IconButton,
   Typography,
-  InputBase,
   Stack,
   Container,
   ButtonBase,
@@ -48,10 +46,7 @@ export const Header = () => {
               <HeaderButton text={"НҮҮР"} />
             </ButtonBase>
             <ButtonBase onClick={() => router.push("/menu")}>
-              <HeaderButton text={"ХООЛНЫ ЦЭС"} />
-            </ButtonBase>
-            <ButtonBase>
-              <HeaderButton text={"ХҮРГЭЛТИЙН БҮС"} />
+              <HeaderButton text={"ЗАХИАЛГА"} />
             </ButtonBase>
           </Stack>
         </Stack>
@@ -64,37 +59,6 @@ export const Header = () => {
             justifyContent: "space-between",
           }}
         >
-          <Box
-            sx={{
-              border: "solid 1px",
-              borderColor: "black",
-              borderRadius: "8px",
-            }}
-          >
-            <IconButton type="button" sx={{ p: "8px" }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Хайх"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-          </Box>
-          <Box
-            sx={{
-              padding: "8px 16px",
-              gap: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "14px", fontWeight: 700, color: "black" }}
-            >
-              Сагс
-            </Typography>
-          </Box>
           <Box
             sx={{
               padding: "8px 16px",

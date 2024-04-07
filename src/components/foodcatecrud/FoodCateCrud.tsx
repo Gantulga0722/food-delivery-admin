@@ -6,6 +6,7 @@ import { useFood } from "../context/Context";
 import { FoodCard } from "../cards";
 import { AddFoodModal } from "./AddFoodModal";
 import { AddCategoryModal } from "./AddCategoryModal";
+import { EmptyMenyComp } from "./EmptyMenuComp";
 
 export const FoodCateCrud = () => {
   interface DataType {
@@ -36,7 +37,6 @@ export const FoodCateCrud = () => {
       };
       const fetched_data = await fetch(BE_URL, options);
       const fetched_json = await fetched_data.json();
-      console.log("cate fetch", fetched_json);
       setData(fetched_json.categories);
     };
     handleGetCategory();
@@ -78,24 +78,28 @@ export const FoodCateCrud = () => {
         </Stack>
         <Stack gap={"26px"}>
           {data?.map((cate, index) => (
-            <ButtonBase key={index} onClick={() => setFoodCate(cate.name)}>
-              <Stack
-                height={"40px"}
-                padding={"8px 16px"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                borderRadius={"8px"}
-                border={"1px solid #D6D8DB"}
-                bgcolor={"#FFF"}
-                direction={"row"}
-                width={"258px"}
-              >
+            <Stack
+              height={"40px"}
+              padding={"8px 16px"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              borderRadius={"8px"}
+              border={"1px solid #D6D8DB"}
+              bgcolor={"#FFF"}
+              direction={"row"}
+              width={"258px"}
+              key={index}
+              position={"relative"}
+            >
+              <ButtonBase onClick={() => setFoodCate(cate.name)}>
                 <Typography fontSize={"18px"} fontWeight={500} color={"#000"}>
                   {cate.name}
                 </Typography>
+              </ButtonBase>
+              <ButtonBase>
                 <DashboardCateIcon />
-              </Stack>
-            </ButtonBase>
+              </ButtonBase>
+            </Stack>
           ))}
           <ButtonBase onClick={onOpenModalCate}>
             <Stack
@@ -152,9 +156,13 @@ export const FoodCateCrud = () => {
           </ButtonBase>
         </Stack>
         <Stack gap={"40px"} flexWrap={"wrap"} direction={"row"}>
-          {menuSortedFood.map((food, index) => (
-            <FoodCard key={index} food={food} />
-          ))}
+          {menuSortedFood.length === 0 ? (
+            <EmptyMenyComp />
+          ) : (
+            menuSortedFood.map((food, index) => (
+              <FoodCard key={index} food={food} />
+            ))
+          )}
         </Stack>
       </Stack>
     </Stack>
