@@ -7,6 +7,7 @@ import { FoodCard } from "../cards";
 import { AddFoodModal } from "./AddFoodModal";
 import { AddCategoryModal } from "./AddCategoryModal";
 import { EmptyMenyComp } from "./EmptyMenuComp";
+import { EditDeleteComp } from "./EditDeleteComp";
 
 export const FoodCateCrud = () => {
   interface DataType {
@@ -19,6 +20,11 @@ export const FoodCateCrud = () => {
   const [foodCate, setFoodCate] = useState("Main Dish");
   const { allFood } = useFood();
   const [data, setData] = useState<DataType[] | null>(null);
+  const [editDelete, setEditDelete] = useState("hide");
+
+  const HandleEditDeletebutton = () => {
+    setEditDelete(editDelete == "hide" ? "show" : "hide");
+  };
 
   const menuFilteredFood = allFood.filter((food) => food.category == foodCate);
   const menuSortedFood = menuFilteredFood.sort(
@@ -96,8 +102,20 @@ export const FoodCateCrud = () => {
                   {cate.name}
                 </Typography>
               </ButtonBase>
-              <ButtonBase>
+              <ButtonBase onClick={HandleEditDeletebutton}>
                 <DashboardCateIcon />
+                {editDelete === "show" && foodCate === cate.name && (
+                  <Stack>
+                    <Stack
+                      position={"absolute"}
+                      top={"-10px"}
+                      right={"-220px"}
+                      zIndex={10}
+                    >
+                      <EditDeleteComp cateData={cate} />
+                    </Stack>
+                  </Stack>
+                )}
               </ButtonBase>
             </Stack>
           ))}
@@ -121,8 +139,8 @@ export const FoodCateCrud = () => {
               <AddCategoryModal
                 isOpen={isModalOpenCate}
                 onClose={onCloseModalCate}
-                adddata={data}
-                setaddData={setData}
+                addData={data}
+                setAddData={setData}
               />
             </Stack>
           </ButtonBase>

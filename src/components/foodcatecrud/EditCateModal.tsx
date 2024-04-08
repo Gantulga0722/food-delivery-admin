@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { ButtonBase, Stack } from "@mui/material";
+import { ButtonBase, InputBase, Stack } from "@mui/material";
 import { CloseIconModal } from "../icons";
 import { AddFoodInfo } from "../inputs";
 import { ConstructionOutlined } from "@mui/icons-material";
@@ -24,46 +24,15 @@ interface DataType {
   name: string;
 }
 
-export const AddCategoryModal = ({
+export const EditCateModal = ({
   isOpen,
   onClose,
-  addData,
-  setAddData,
+  cateData,
 }: {
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  addData: DataType[] | null;
-  setAddData: React.Dispatch<React.SetStateAction<any[] | null>>;
+  cateData: DataType;
 }) => {
-  const BE_URL = "http://localhost:4000/api/category";
-  const [categoryName, setCategoryName] = React.useState("");
-
-  const handleAddCategory = async () => {
-    const data = {
-      name: categoryName,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    try {
-      const FETCHED_DATA = await fetch(BE_URL, options);
-      const FETCHED_JSON = await FETCHED_DATA.json();
-      setAddData((addData: DataType[] | null) => {
-        if (addData) {
-          return [...addData, FETCHED_JSON];
-        } else {
-          return [FETCHED_JSON];
-        }
-      });
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
-
   return (
     <Stack>
       <Modal
@@ -85,17 +54,27 @@ export const AddCategoryModal = ({
               <CloseIconModal />
             </ButtonBase>
             <Typography fontSize={"24px"} fontWeight={700} color={"#161616"}>
-              Create new Category
+              Edit Category
             </Typography>
             <Stack width={"24px"} height={"24px"}></Stack>
           </Stack>
           <Stack gap={"16px"} paddingY={"24px"}>
-            <AddFoodInfo
-              text={"Category name"}
-              placehold={"Write Category name"}
-              value={categoryName}
-              setFunction={setCategoryName}
-            />
+            <Typography fontSize={"14px"} fontWeight={500} color={"#121316"}>
+              Edit category name
+            </Typography>
+            <Stack
+              height={"56px"}
+              paddingX={"12px"}
+              borderRadius={"8px"}
+              bgcolor={"#F4F4F4"}
+              justifyContent={"center"}
+            >
+              <InputBase
+                placeholder={"Write new category name"}
+                value={cateData.name}
+                onChange={(e) => setFunction(`${e.target.value}`)}
+              ></InputBase>
+            </Stack>
           </Stack>
           <Stack
             paddingTop={"24px"}
@@ -105,21 +84,6 @@ export const AddCategoryModal = ({
             justifyContent={"flex-end"}
             direction={"row"}
           >
-            <ButtonBase>
-              <Stack
-                padding={"10px 8px"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                <Typography
-                  fontSize={"16px"}
-                  fontWeight={700}
-                  color={"#3F4145"}
-                >
-                  Clear
-                </Typography>
-              </Stack>
-            </ButtonBase>
             <ButtonBase
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 handleAddCategory();
@@ -134,7 +98,7 @@ export const AddCategoryModal = ({
                 bgcolor={"#393939"}
               >
                 <Typography fontSize={"16px"} fontWeight={700} color={"#FFF"}>
-                  Continue
+                  Edit
                 </Typography>
               </Stack>
             </ButtonBase>

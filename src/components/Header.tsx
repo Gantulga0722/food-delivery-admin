@@ -1,12 +1,6 @@
 import * as React from "react";
 import { PineConeIcon, LoginIcon } from "./icons/Icons";
-import {
-  Box,
-  Typography,
-  Stack,
-  Container,
-  ButtonBase,
-} from "@mui/material";
+import { Box, Typography, Stack, Container, ButtonBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 import { HeaderButton } from "@/components/buttons";
@@ -15,7 +9,7 @@ import { useBag } from "./context/BagContext";
 export const Header = () => {
   const router = useRouter();
   const { bagItem } = useBag();
-  console.log(bagItem);
+
   return (
     <Stack
       direction={"row"}
