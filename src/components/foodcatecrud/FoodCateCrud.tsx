@@ -121,6 +121,8 @@ export const FoodCateCrud = () => {
               <AddCategoryModal
                 isOpen={isModalOpenCate}
                 onClose={onCloseModalCate}
+                adddata={data}
+                setaddData={setData}
               />
             </Stack>
           </ButtonBase>

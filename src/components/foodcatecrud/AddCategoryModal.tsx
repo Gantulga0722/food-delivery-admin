@@ -18,12 +18,21 @@ const style = {
   p: 3,
 };
 
+interface DataType {
+  id: string;
+  name: string;
+}
+
 export const AddCategoryModal = ({
   isOpen,
   onClose,
+  adddata,
+  setaddData,
 }: {
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  adddata: DataType[];
+  setaddData: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
   const BE_URL = "http://localhost:4000/api/category";
   const [categoryName, setCategoryName] = React.useState("");
@@ -41,7 +50,8 @@ export const AddCategoryModal = ({
     };
     const FETCHED_DATA = await fetch(BE_URL, options);
     const FETCHED_JSON = await FETCHED_DATA.json();
-    console.log("fethc", FETCHED_JSON);
+    console.log("fetched", FETCHED_JSON);
+    setaddData({ ...adddata, FETCHED_JSON });
   };
 
   return (
