@@ -39,7 +39,7 @@ export const Header = () => {
             <ButtonBase onClick={() => router.push("/")}>
               <HeaderButton text={"НҮҮР"} />
             </ButtonBase>
-            <ButtonBase onClick={() => router.push("/menu")}>
+            <ButtonBase onClick={() => router.push("/order")}>
               <HeaderButton text={"ЗАХИАЛГА"} />
             </ButtonBase>
           </Stack>

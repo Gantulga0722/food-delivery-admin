@@ -33,6 +33,31 @@ export const EditCateModal = ({
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   cateData: DataType;
 }) => {
+  const [newCateName, setNewCateName] = React.useState(cateData.name);
+  const updatedCateData = { ...cateData, name: newCateName };
+  const BE_URL = "http://localhost:4000/api/category";
+
+  const handleEditCategory = async () => {
+    const data = {
+      _id: updatedCateData._id,
+      name: updatedCateData.name,
+    };
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    console.log("CateId", cateData._id);
+    try {
+      const FETCHED_DATA = await fetch(BE_URL, options);
+      const FETCHED_JSON = await FETCHED_DATA.json();
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
   return (
     <Stack>
       <Modal
@@ -71,8 +96,8 @@ export const EditCateModal = ({
             >
               <InputBase
                 placeholder={"Write new category name"}
-                value={cateData.name}
-                onChange={(e) => setFunction(`${e.target.value}`)}
+                value={newCateName}
+                onChange={(e) => setNewCateName(`${e.target.value}`)}
               ></InputBase>
             </Stack>
           </Stack>
@@ -86,7 +111,7 @@ export const EditCateModal = ({
           >
             <ButtonBase
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                handleAddCategory();
+                handleEditCategory();
                 onClose(e);
               }}
             >

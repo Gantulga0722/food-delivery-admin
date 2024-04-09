@@ -1,6 +1,6 @@
 import { ButtonBase, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { FoodModal } from "../modal/FoodModal";
+import { FoodEDModal } from "../modal/FoodEDModal";
 
 type PropType = {
   food: {
@@ -29,10 +29,31 @@ export const FoodCard = ({ food }: PropType) => {
     e.stopPropagation();
     setIsModalOpen(true);
   };
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   return (
-    <ButtonBase onClick={onOpenModal}>
+    <ButtonBase onClick={handleClick}>
       <Stack gap={"14px"} marginTop={"30px"}>
-        <FoodModal isOpen={isModalOpen} onClose={onCloseModal} food={food} />
+        <FoodEDModal
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+          open={open}
+          id={id}
+        />
         <Stack
           width={"282px"}
           height={"186px"}

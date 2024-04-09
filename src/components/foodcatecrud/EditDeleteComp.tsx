@@ -15,7 +15,6 @@ export const EditDeleteComp = ({
   cateData: DataType;
   cateId: string;
 }) => {
-  console.log("cateData", cateData);
   const [isModalOpenCate, setIsModalOpenCate] = useState(false);
   const onCloseModalCate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
