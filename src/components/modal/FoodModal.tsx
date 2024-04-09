@@ -26,7 +26,6 @@ export const FoodModal = ({
   food: any;
 }) => {
   const { bagItem, setBagItem } = useBag();
-  console.log(bagItem, setBagItem);
 
   const [bagCount, setBagCount] = useState(1);
   const { foodName, price, imagePath, sale, ingredients, category, id, stock } =
@@ -47,7 +46,6 @@ export const FoodModal = ({
 
     setBagItem([...bagItem, itemInBag]);
   };
-  console.log({ bagItem });
 
   const salePrice = price - (price * sale) / 100;
   const subHandle = () => {

@@ -20,7 +20,7 @@ const style = {
 };
 
 interface DataType {
-  id: string;
+  _id: string;
   name: string;
 }
 

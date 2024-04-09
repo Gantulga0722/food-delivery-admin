@@ -4,11 +4,18 @@ import { useState } from "react";
 import { EditCateModal } from "./EditCateModal";
 
 interface DataType {
-  id: string;
+  _id: string;
   name: string;
 }
 
-export const EditDeleteComp = ({ cateData }: { cateData: DataType }) => {
+export const EditDeleteComp = ({
+  cateData,
+  cateId,
+}: {
+  cateData: DataType;
+  cateId: string;
+}) => {
+  console.log("cateData", cateData);
   const [isModalOpenCate, setIsModalOpenCate] = useState(false);
   const onCloseModalCate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -19,6 +26,28 @@ export const EditDeleteComp = ({ cateData }: { cateData: DataType }) => {
   const onOpenModalCate = (e: any) => {
     e.stopPropagation();
     setIsModalOpenCate(true);
+  };
+
+  const BE_URL = "http://localhost:4000/api/category";
+
+  const handleDeleteCategory = async () => {
+    const data = {
+      _id: cateId,
+    };
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    console.log("CateId", cateId);
+    try {
+      const FETCHED_DATA = await fetch(BE_URL, options);
+      const FETCHED_JSON = await FETCHED_DATA.json();
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
 
   return (
@@ -54,7 +83,7 @@ export const EditDeleteComp = ({ cateData }: { cateData: DataType }) => {
           />
         </Stack>
       </ButtonBase>
-      <ButtonBase>
+      <ButtonBase onClick={handleDeleteCategory}>
         <Stack
           padding={"8px 16px"}
           alignItems={"center"}

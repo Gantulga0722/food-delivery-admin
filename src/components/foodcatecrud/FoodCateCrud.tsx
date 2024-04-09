@@ -9,22 +9,20 @@ import { AddCategoryModal } from "./AddCategoryModal";
 import { EmptyMenyComp } from "./EmptyMenuComp";
 import { EditDeleteComp } from "./EditDeleteComp";
 
-export const FoodCateCrud = () => {
-  interface DataType {
-    id: string;
-    name: string;
-  }
+type DataType = {
+  _id: string;
+  name: string;
+};
 
+export const FoodCateCrud = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenCate, setIsModalOpenCate] = useState(false);
   const [foodCate, setFoodCate] = useState("Main Dish");
   const { allFood } = useFood();
   const [data, setData] = useState<DataType[] | null>(null);
   const [editDelete, setEditDelete] = useState("hide");
-
-  const HandleEditDeletebutton = () => {
-    setEditDelete(editDelete == "hide" ? "show" : "hide");
-  };
+  const [checkCate, setCheckCate] = useState();
+  const [categoryId, setCategoryId] = useState("");
 
   const menuFilteredFood = allFood.filter((food) => food.category == foodCate);
   const menuSortedFood = menuFilteredFood.sort(
@@ -83,42 +81,53 @@ export const FoodCateCrud = () => {
           </Typography>
         </Stack>
         <Stack gap={"26px"}>
-          {data?.map((cate, index) => (
-            <Stack
-              height={"40px"}
-              padding={"8px 16px"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              borderRadius={"8px"}
-              border={"1px solid #D6D8DB"}
-              bgcolor={"#FFF"}
-              direction={"row"}
-              width={"258px"}
-              key={index}
-              position={"relative"}
-            >
-              <ButtonBase onClick={() => setFoodCate(cate.name)}>
-                <Typography fontSize={"18px"} fontWeight={500} color={"#000"}>
-                  {cate.name}
-                </Typography>
-              </ButtonBase>
-              <ButtonBase onClick={HandleEditDeletebutton}>
-                <DashboardCateIcon />
-                {editDelete === "show" && foodCate === cate.name && (
-                  <Stack>
+          {data?.map((cate, index) => {
+            const HandleEditDeletebutton = () => {
+              setEditDelete(editDelete == "hide" ? "show" : "hide");
+              setFoodCate(cate.name);
+              setCategoryId(cate._id);
+            };
+            return (
+              <Stack
+                height={"40px"}
+                padding={"8px 16px"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                borderRadius={"8px"}
+                border={"1px solid #D6D8DB"}
+                bgcolor={"#FFF"}
+                direction={"row"}
+                width={"258px"}
+                key={index}
+                position={"relative"}
+              >
+                <ButtonBase
+                  onClick={(e: any) => {
+                    setFoodCate(cate.name);
+                    e.stopPropagation();
+                  }}
+                >
+                  <Typography fontSize={"18px"} fontWeight={500} color={"#000"}>
+                    {cate.name}
+                  </Typography>
+                </ButtonBase>
+
+                <ButtonBase onClick={HandleEditDeletebutton}>
+                  <DashboardCateIcon />
+                  {editDelete === "show" && foodCate === cate.name && (
                     <Stack
                       position={"absolute"}
                       top={"-10px"}
                       right={"-220px"}
                       zIndex={10}
                     >
-                      <EditDeleteComp cateData={cate} />
+                      <EditDeleteComp cateData={cate} cateId={categoryId} />
                     </Stack>
-                  </Stack>
-                )}
-              </ButtonBase>
-            </Stack>
-          ))}
+                  )}
+                </ButtonBase>
+              </Stack>
+            );
+          })}
           <ButtonBase onClick={onOpenModalCate}>
             <Stack
               height={"40px"}
