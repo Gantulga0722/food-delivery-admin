@@ -15,3 +15,7 @@ body {
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
 }
+
+.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+  background-color: transparent;
+}

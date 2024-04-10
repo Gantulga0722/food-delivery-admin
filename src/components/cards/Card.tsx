@@ -20,16 +20,6 @@ export const FoodCard = ({ food }: PropType) => {
   const { foodName, price, imagePath, sale } = food;
   const salePrice = price - (price * sale) / 100;
 
-  const onCloseModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    console.log();
-    setIsModalOpen(false);
-  };
-  const onOpenModal = (e: any) => {
-    e.stopPropagation();
-    setIsModalOpen(true);
-  };
-
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );

@@ -38,6 +38,7 @@ export const FoodEDModal = ({
               alignItems={"center"}
               borderRadius={"100px"}
               border={"1px solid #ECEDF0"}
+              bgcolor={"#FFF"}
             >
               <Typography fontSize={"20px"} fontWeight={590} color={"#000"}>
                 Edit
@@ -51,6 +52,7 @@ export const FoodEDModal = ({
               alignItems={"center"}
               borderRadius={"100px"}
               border={"1px solid #ECEDF0"}
+              bgcolor={"#FFF"}
             >
               <Typography fontSize={"20px"} fontWeight={590} color={"#000"}>
                 Delete
