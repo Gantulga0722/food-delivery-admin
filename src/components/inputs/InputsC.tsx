@@ -95,7 +95,7 @@ export const FoodInfoCateSelect = ({
     setFunction(selected?._id);
   };
 
-  const BE_URL = "http://localhost:4000/api/category";
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/category";
 
   useEffect(() => {
     const handleGetCategory = async () => {

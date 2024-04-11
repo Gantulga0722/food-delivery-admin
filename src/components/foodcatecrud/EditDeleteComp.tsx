@@ -27,7 +27,7 @@ export const EditDeleteComp = ({
     setIsModalOpenCate(true);
   };
 
-  const BE_URL = "http://localhost:4000/api/category";
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/category";
 
   const handleDeleteCategory = async () => {
     const data = {

@@ -29,7 +29,7 @@ export const AddFoodModal = ({
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
-  const BE_URL = "http://localhost:4000/api/food";
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/food";
   const [category, setCategory] = useState("");
   const [foodName, setFoodName] = useState("");
   const [price, setPrice] = useState(0);

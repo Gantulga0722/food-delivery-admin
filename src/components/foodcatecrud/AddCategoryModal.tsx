@@ -35,7 +35,7 @@ export const AddCategoryModal = ({
   addData: DataType[] | null;
   setAddData: React.Dispatch<React.SetStateAction<any[] | null>>;
 }) => {
-  const BE_URL = "http://localhost:4000/api/category";
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/category";
   const [categoryName, setCategoryName] = React.useState("");
 
   const handleAddCategory = async () => {

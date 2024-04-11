@@ -35,7 +35,7 @@ export const EditCateModal = ({
 }) => {
   const [newCateName, setNewCateName] = React.useState(cateData.name);
   const updatedCateData = { ...cateData, name: newCateName };
-  const BE_URL = "http://localhost:4000/api/category";
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/category";
 
   const handleEditCategory = async () => {
     const data = {
