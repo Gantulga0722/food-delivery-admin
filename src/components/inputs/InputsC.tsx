@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export const AddFoodInfo = ({
+export const EditFoodInfo = ({
   text,
   placehold,
   setFunction,

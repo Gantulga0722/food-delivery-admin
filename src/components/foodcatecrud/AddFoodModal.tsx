@@ -120,35 +120,31 @@ export const AddFoodModal = ({
               value={foodName}
               placehold={"Хоолны нэр оруулна уу"}
               setFunction={setFoodName}
-              defaultValue={""}
             />
             <FoodInfoCateSelect
               text={"Хоолны ангилал"}
               value={category}
               placehold={"Select Category"}
               setFunction={setCategory}
-              defautlSelect={""}
+              defautlSelect={category}
             />
             <AddFoodInfo
               text={"Хоолны орц"}
               value={ingredients}
               placehold={"Хоолны орц оруулна уу"}
               setFunction={setIngedients}
-              defaultValue={""}
             />
             <AddFoodInfo
               text={"Хоолны үнэ"}
               value={price}
               placehold={"Хоолны үнэ оруулна уу"}
               setFunction={setPrice}
-              defaultValue={""}
             />
             <AddFoodInfo
               text={"Хямдралтай эсэх"}
               value={sale}
               placehold={"Хямдралын хувь оруулна уу"}
               setFunction={setSale}
-              defaultValue={""}
             />
 
             <Stack gap={"8px"}>
