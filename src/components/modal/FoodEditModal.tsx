@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { ButtonBase, CircularProgress, Stack } from "@mui/material";
 import { CloseIconModal } from "../icons";
-import { AddFoodInfo, FoodInfoCateSelect } from "../inputs";
+import { AddFoodInfo, EditFoodInfo, FoodInfoCateSelect } from "../inputs";
 import { useState } from "react";
 
 const style = {
@@ -119,7 +119,7 @@ export const FoodEditModal = ({
             <Stack width={"24px"} height={"24px"}></Stack>
           </Stack>
           <Stack gap={"16px"} paddingY={"24px"}>
-            <AddFoodInfo
+            <EditFoodInfo
               text={"Хоолны нэр"}
               value={foodName}
               defaultValue={foodName}
@@ -133,21 +133,21 @@ export const FoodEditModal = ({
               placehold={"Select Category"}
               setFunction={setCategory}
             />
-            <AddFoodInfo
+            <EditFoodInfo
               text={"Хоолны орц"}
               defaultValue={ingredients}
               value={ingredients}
               placehold={"Хоолны орц оруулна уу"}
               setFunction={setIngedients}
             />
-            <AddFoodInfo
+            <EditFoodInfo
               text={"Хоолны үнэ"}
               defaultValue={price}
               value={price}
               placehold={"Хоолны үнэ оруулна уу"}
               setFunction={setPrice}
             />
-            <AddFoodInfo
+            <EditFoodInfo
               text={"Хямдралтай эсэх"}
               defaultValue={sale}
               value={sale}
