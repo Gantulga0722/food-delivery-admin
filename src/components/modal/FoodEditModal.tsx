@@ -22,20 +22,24 @@ const style = {
 const CLOUD_NAME = "dzgomjjhe";
 const UPLOAD_PRESET = "w0rub0ag";
 
-export const AddFoodModal = ({
+export const FoodEditModal = ({
   isOpen,
   onClose,
+  food,
 }: {
   isOpen: boolean;
   onClose: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  food: any;
 }) => {
   const BE_URL = "http://localhost:4000/api/food";
-  const [category, setCategory] = useState("");
-  const [foodName, setFoodName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [imagePath, setImagePath] = useState<string | null>(null);
-  const [ingredients, setIngedients] = useState<string[]>([]);
-  const [sale, setSale] = useState(0);
+  const [category, setCategory] = useState(food.category);
+  const [foodName, setFoodName] = useState(food.foodName);
+  const [price, setPrice] = useState(food.price);
+  const [imagePath, setImagePath] = useState<string | null>(food.imagePath);
+  const [ingredients, setIngedients] = useState<string>(food.ingredients);
+  const [sale, setSale] = useState(food.sale);
+
+  console.log("food", food);
 
   const handleAddFood = async () => {
     const data = {
@@ -110,7 +114,7 @@ export const AddFoodModal = ({
               <CloseIconModal />
             </ButtonBase>
             <Typography fontSize={"24px"} fontWeight={700} color={"#161616"}>
-              Create food
+              Edit food
             </Typography>
             <Stack width={"24px"} height={"24px"}></Stack>
           </Stack>
@@ -118,37 +122,37 @@ export const AddFoodModal = ({
             <AddFoodInfo
               text={"Хоолны нэр"}
               value={foodName}
+              defaultValue={foodName}
               placehold={"Хоолны нэр оруулна уу"}
               setFunction={setFoodName}
-              defaultValue=""
             />
             <FoodInfoCateSelect
               text={"Хоолны ангилал"}
+              defautlSelect={category}
               value={category}
               placehold={"Select Category"}
               setFunction={setCategory}
-              defautlSelect=""
             />
             <AddFoodInfo
               text={"Хоолны орц"}
+              defaultValue={ingredients}
               value={ingredients}
               placehold={"Хоолны орц оруулна уу"}
               setFunction={setIngedients}
-              defaultValue=""
             />
             <AddFoodInfo
               text={"Хоолны үнэ"}
+              defaultValue={price}
               value={price}
               placehold={"Хоолны үнэ оруулна уу"}
               setFunction={setPrice}
-              defaultValue=""
             />
             <AddFoodInfo
               text={"Хямдралтай эсэх"}
+              defaultValue={sale}
               value={sale}
               placehold={"Хямдралын хувь оруулна уу"}
               setFunction={setSale}
-              defaultValue=""
             />
 
             <Stack gap={"8px"}>
@@ -224,7 +228,7 @@ export const AddFoodModal = ({
             justifyContent={"flex-end"}
             direction={"row"}
           >
-            <ButtonBase>
+            {/* <ButtonBase>
               <Stack
                 padding={"10px 8px"}
                 justifyContent={"center"}
@@ -238,7 +242,7 @@ export const AddFoodModal = ({
                   Clear
                 </Typography>
               </Stack>
-            </ButtonBase>
+            </ButtonBase> */}
             <ButtonBase onClick={handleAddFood}>
               <Stack
                 padding={"10px 16px"}
@@ -248,7 +252,7 @@ export const AddFoodModal = ({
                 bgcolor={"#393939"}
               >
                 <Typography fontSize={"16px"} fontWeight={700} color={"#FFF"}>
-                  Continue
+                  Edit
                 </Typography>
               </Stack>
             </ButtonBase>

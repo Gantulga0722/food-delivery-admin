@@ -15,11 +15,13 @@ export const AddFoodInfo = ({
   placehold,
   setFunction,
   value,
+  defaultValue,
 }: {
   text: string;
   placehold: string;
   setFunction: Dispatch<SetStateAction<any>>;
   value: any;
+  defaultValue: string;
 }) => {
   return (
     <Stack gap={"8px"}>
@@ -57,6 +59,7 @@ export const AddFoodInfo = ({
       >
         <InputBase
           placeholder={placehold}
+          defaultValue={defaultValue}
           onChange={(e) => setFunction(`${e.target.value}`)}
         ></InputBase>
       </Stack>
@@ -69,11 +72,13 @@ export const FoodInfoCateSelect = ({
   placehold,
   setFunction,
   value,
+  defautlSelect,
 }: {
   text: string;
   placehold: string;
   setFunction: Dispatch<SetStateAction<any>>;
   value: string;
+  defautlSelect: string;
 }) => {
   interface DataType {
     _id: string;
@@ -131,6 +136,7 @@ export const FoodInfoCateSelect = ({
             onChange={handleChange}
             sx={{ ".MuiOutlinedInput-notchedOutline": { border: "none" } }}
             placeholder="Select category"
+            defaultValue={defautlSelect}
           >
             {data?.map((cate, index) => (
               <MenuItem key={index} value={cate._id}>

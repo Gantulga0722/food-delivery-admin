@@ -16,34 +16,15 @@ type PropType = {
   };
 };
 export const FoodCard = ({ food }: PropType) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState("close");
   const { foodName, price, imagePath, sale } = food;
   const salePrice = price - (price * sale) / 100;
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
   return (
-    <ButtonBase onClick={handleClick}>
+    <ButtonBase
+      onClick={() => setIsModalOpen(isModalOpen == "close" ? "open" : "close")}
+    >
       <Stack gap={"14px"} marginTop={"30px"}>
-        <FoodEDModal
-          anchorEl={anchorEl}
-          handleClose={handleClose}
-          open={open}
-          id={id}
-        />
         <Stack
           width={"282px"}
           height={"186px"}
@@ -58,6 +39,14 @@ export const FoodCard = ({ food }: PropType) => {
           }}
           position={"relative"}
         >
+          <Stack
+            position={"absolute"}
+            top={"53px"}
+            left={"58px"}
+            display={isModalOpen == "close" ? "none" : "flex"}
+          >
+            <FoodEDModal food={food} />
+          </Stack>
           {sale > 0 ? (
             <Stack
               padding={"4px 16px"}
