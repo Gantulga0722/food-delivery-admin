@@ -19,7 +19,7 @@ export const AddFoodInfo = ({
 }: {
   text: string;
   placehold: string;
-  setFunction: Dispatch<SetStateAction<any>>;
+  setFunction: Dispatch<SetStateAction<string>>;
   value: any;
   defaultValue: string;
 }) => {
