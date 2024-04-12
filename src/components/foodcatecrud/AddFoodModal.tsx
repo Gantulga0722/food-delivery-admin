@@ -235,7 +235,12 @@ export const AddFoodModal = ({
                 </Typography>
               </Stack>
             </ButtonBase>
-            <ButtonBase onClick={handleAddFood}>
+            <ButtonBase
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                handleAddFood();
+                onClose(e);
+              }}
+            >
               <Stack
                 padding={"10px 16px"}
                 justifyContent={"center"}
