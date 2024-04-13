@@ -166,7 +166,7 @@ export const FoodCateCrud = () => {
         >
           <Stack>
             <Typography fontSize={"22px"} fontWeight={700} color={"#272727"}>
-              {foodCate}
+              {data?.map((cate) => (cate._id == foodCate ? cate.name : ""))}
             </Typography>
           </Stack>
           <ButtonBase onClick={onOpenModal}>
