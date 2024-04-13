@@ -46,7 +46,6 @@ export const FoodEDModal = ({ food }: PropType) => {
           </Typography>
         </Stack>
       </ButtonBase>
-
       <ButtonBase onClick={() => {}}>
         <Stack
           width={"166px"}

@@ -73,12 +73,14 @@ export const FoodInfoCateSelect = ({
   setFunction,
   value,
   defautlSelect,
+  cateId,
 }: {
   text: string;
   placehold: string;
   setFunction: Dispatch<SetStateAction<any>>;
   value: string;
   defautlSelect: string;
+  cateId: string;
 }) => {
   interface DataType {
     _id: string;
@@ -95,6 +97,8 @@ export const FoodInfoCateSelect = ({
     setFunction(selected?._id);
   };
 
+  console.log("default select", defautlSelect);
+
   const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/category";
 
   useEffect(() => {
@@ -107,12 +111,10 @@ export const FoodInfoCateSelect = ({
       };
       const fetched_data = await fetch(BE_URL, options);
       const fetched_json = await fetched_data.json();
-      console.log("cate fetch", fetched_json);
       setData(fetched_json.categories);
     };
     handleGetCategory();
   }, []);
-  console.log({ data });
   return (
     <Stack gap={"8px"}>
       <Stack direction={"row"} alignItems={"center"} gap={"8px"}>
@@ -131,7 +133,6 @@ export const FoodInfoCateSelect = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value={selectedCategory?.id}
             label="Select category"
             onChange={handleChange}
             sx={{ ".MuiOutlinedInput-notchedOutline": { border: "none" } }}
@@ -140,7 +141,7 @@ export const FoodInfoCateSelect = ({
           >
             {data?.map((cate, index) => (
               <MenuItem key={index} value={cate._id}>
-                {cate.name}
+                {cate._id == cateId ? cate.name : ""}
               </MenuItem>
             ))}
           </Select>

@@ -90,7 +90,6 @@ export const FoodEditModal = ({
       setLoading(false);
     }
   };
-
   return (
     <Stack>
       <Modal
@@ -130,6 +129,7 @@ export const FoodEditModal = ({
               value={category}
               placehold={"Select Category"}
               setFunction={setCategory}
+              cateId={category}
             />
             <EditFoodInfo
               text={"Хоолны орц"}
