@@ -39,8 +39,6 @@ export const FoodEditModal = ({
   const [ingredients, setIngedients] = useState<string>(food.ingredients);
   const [sale, setSale] = useState(food.sale);
 
-  console.log("food", food);
-
   const handleAddFood = async () => {
     const data = {
       category: category,

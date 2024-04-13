@@ -17,14 +17,15 @@ type DataType = {
 export const FoodCateCrud = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenCate, setIsModalOpenCate] = useState(false);
-  const [foodCate, setFoodCate] = useState("Main Dish");
+  const [foodCate, setFoodCate] = useState("");
   const { allFood } = useFood();
   const [data, setData] = useState<DataType[] | null>(null);
   const [editDelete, setEditDelete] = useState("hide");
   const [checkCate, setCheckCate] = useState();
   const [categoryId, setCategoryId] = useState("");
 
-  const menuFilteredFood = allFood.filter((food) => food.category == foodCate);
+  const menuFilteredFood = allFood.filter((food) => food.category === foodCate);
+
   const menuSortedFood = menuFilteredFood.sort(
     (aFood, bFood) => bFood.sale - aFood.sale
   );
@@ -84,7 +85,7 @@ export const FoodCateCrud = () => {
           {data?.map((cate, index) => {
             const HandleEditDeletebutton = () => {
               setEditDelete(editDelete == "hide" ? "show" : "hide");
-              setFoodCate(cate.name);
+              setFoodCate(cate._id);
               setCategoryId(cate._id);
             };
             return (
@@ -103,7 +104,7 @@ export const FoodCateCrud = () => {
               >
                 <ButtonBase
                   onClick={(e: any) => {
-                    setFoodCate(cate.name);
+                    setFoodCate(cate._id);
                     e.stopPropagation();
                   }}
                 >

@@ -43,7 +43,7 @@ const FoodContextProvider = ({ children }: { children: React.ReactNode }) => {
           "https://food-delivery-be-zeta.vercel.app/api/food"
         );
         const data = await response.json();
-        setAllFood(data);
+        setAllFood(data.foods);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
