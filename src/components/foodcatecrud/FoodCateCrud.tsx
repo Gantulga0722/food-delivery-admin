@@ -115,7 +115,7 @@ export const FoodCateCrud = () => {
 
                 <ButtonBase onClick={HandleEditDeletebutton}>
                   <DashboardCateIcon />
-                  {editDelete === "show" && foodCate === cate.name && (
+                  {editDelete === "show" && foodCate === cate._id && (
                     <Stack
                       position={"absolute"}
                       top={"-10px"}
