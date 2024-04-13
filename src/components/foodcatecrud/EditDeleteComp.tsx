@@ -49,6 +49,12 @@ export const EditDeleteComp = ({
     }
   };
 
+  const autoReloadPage = (interval: number): void => {
+    setTimeout(() => {
+      window.location.reload();
+    }, interval);
+  };
+
   return (
     <Stack
       width={"200px"}
@@ -82,7 +88,12 @@ export const EditDeleteComp = ({
           />
         </Stack>
       </ButtonBase>
-      <ButtonBase onClick={handleDeleteCategory}>
+      <ButtonBase
+        onClick={() => {
+          handleDeleteCategory();
+          autoReloadPage(2000);
+        }}
+      >
         <Stack
           padding={"8px 16px"}
           alignItems={"center"}
