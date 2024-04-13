@@ -29,6 +29,34 @@ export const FoodEDModal = ({ food }: PropType) => {
     e.stopPropagation();
     setIsModalOpen(true);
   };
+  console.log("foodId", food._id);
+
+  const BE_URL = "https://food-delivery-be-zeta.vercel.app/api/food";
+
+  const handleDeleteDelete = async () => {
+    const data = {
+      _id: food._id,
+    };
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      const FETCHED_DATA = await fetch(BE_URL, options);
+      const FETCHED_JSON = await FETCHED_DATA.json();
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const autoReloadPage = (interval: number): void => {
+    setTimeout(() => {
+      window.location.reload();
+    }, interval);
+  };
 
   return (
     <Stack gap={"30px"}>
@@ -46,7 +74,12 @@ export const FoodEDModal = ({ food }: PropType) => {
           </Typography>
         </Stack>
       </ButtonBase>
-      <ButtonBase onClick={() => {}}>
+      <ButtonBase
+        onClick={() => {
+          handleDeleteDelete();
+          autoReloadPage(2000);
+        }}
+      >
         <Stack
           width={"166px"}
           padding={"8px"}

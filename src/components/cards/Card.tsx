@@ -17,7 +17,7 @@ type PropType = {
 };
 export const FoodCard = ({ food }: PropType) => {
   const [isModalOpen, setIsModalOpen] = useState("close");
-  const { foodName, price, imagePath, sale } = food;
+  const { foodName, price, imagePath, sale, id } = food;
   const salePrice = price - (price * sale) / 100;
 
   return (
